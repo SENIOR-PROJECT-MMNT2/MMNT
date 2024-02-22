@@ -59,7 +59,7 @@ comment.belongsTo(User, { foreignKey: 'userId' })
 rating.belongsTo(Product, { foreignKey: 'prodId' })
 rating.belongsTo(User, { foreignKey: 'userId' })
 payment.belongsTo(User, { foreignKey: 'userId' })
-User.sync({ alter: true });
+User.sync();
 
 
 
