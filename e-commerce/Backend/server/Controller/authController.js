@@ -2,7 +2,7 @@ const db = require('../../database/Models/User')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require("dotenv").config()
-const secretKey ="azerty"
+const secretKey =process.env.JWT_SECRET
 console.log("secret",secretKey)
 
 
