@@ -4,15 +4,8 @@ export default function(){
     return(
        
       <div>
-<div >
-<Navbar />
-</div>
-
-
-<div  >
 <Sidebar />
-</div>
-
+<Navbar />
 
       </div>
     )

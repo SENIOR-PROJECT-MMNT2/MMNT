@@ -7,6 +7,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/flowbite/**/*.js",
     'node_modules/flowbite-react/lib/esm/**/*.js',
+    
   ],
   theme: {
     extend: {
@@ -18,7 +19,9 @@ const config: Config = {
     },
   },
   plugins: [
-    require('flowbite/plugin')
+    require('flowbite/plugin')({
+      charts: true,
+  })
   ],
 };
 export default config;
