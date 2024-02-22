@@ -3,16 +3,9 @@ import Navbar from "./components/navbar"
 export default function(){
     return(
        
-      <div>
-<div >
-<Navbar />
-</div>
-
-
-<div  >
+<div style={{backgroundColor:"black"}} >
 <Sidebar />
-</div>
-
+<Navbar />
 
       </div>
     )
