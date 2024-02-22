@@ -2,7 +2,7 @@ const db = require('../../database/Models/User')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require("dotenv").config()
-const secretKey = process.env.JWT_SECRET;
+const secretKey ="azerty"
 console.log("secret",secretKey)
 
 
@@ -13,7 +13,7 @@ const signupUser = async (req, res) => {
     const newUser = await db.User.create({
         firstName:firstName,
         lastName:lastName,
-        password: await bcrypt.hash(password, 15),
+        password: await bcrypt.hash(password, 10),
         email:email,
         age:age,
         role: role, 
@@ -51,7 +51,3 @@ module.exports={ signupUser ,loginUser}
 
 
    
-           
-
-           
-             
