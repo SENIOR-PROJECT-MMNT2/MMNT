@@ -1,8 +1,8 @@
 import React from 'react'
-
+import Link from 'next/link'
 export default function Navbar() {
   return (
-    <div style={{marginTop:"-330px"}}>
+    <div style={{marginTop:"-330px",zIndex:"1" }}>
 
   <div className="flex flex-wrap place-items-center h-screen">
     <section className="relative mx-auto">
@@ -11,23 +11,24 @@ export default function Navbar() {
         <div className="px-5 xl:px-12 py-6 flex w-full items-center">
           <a className="text-3xl font-bold font-heading" href="#">
        
-            Logo Here.
+            Exclusive
           </a>
     
           <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
+           <Link href={"/admin/charts"} > <li>
+              <a className="hover:text-gray-200" href="#">
+                Charts
+              </a>
+            </li>
+            </Link>
             <li>
               <a className="hover:text-gray-200" href="#">
-                Home
+                Catagories
               </a>
             </li>
             <li>
               <a className="hover:text-gray-200" href="#">
-                Catagory
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-gray-200" href="#">
-                Collections
+                Products
               </a>
             </li>
             <li>
