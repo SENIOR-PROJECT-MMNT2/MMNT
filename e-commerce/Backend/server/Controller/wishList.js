@@ -11,15 +11,7 @@ const getAll = function (req, res) {
     res.send(error)
   })
   }
-  // const getAllByUserId= function (req, res) {
-  //   const getone= wishlist.findAll({where:{userId:req.params.id}}).then((result)=>{
-  //     res.json(result)
-  //   })
-  //   .catch((error)=>{
-  //     res.send(error)
-  //   })
-  //   }
-
+ 
 const add = function (req, res) {
   const add= wishlist.create(req.body).then((result)=>{
     res.json(result)
