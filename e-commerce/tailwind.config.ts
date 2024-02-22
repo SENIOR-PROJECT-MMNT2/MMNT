@@ -7,6 +7,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/flowbite/**/*.js",
     'node_modules/flowbite-react/lib/esm/**/*.js',
+  
   ],
   theme: {
     extend: {
