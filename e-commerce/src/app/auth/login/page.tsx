@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode"
 
 interface loginData {
   email: string;
@@ -14,12 +15,11 @@ export default function Login () {
   
 
   const loging = (): void => {
-    axios.post(`http://localhost:3000/auth/login`, { email: email, password: password })
-      .then((result) => {
-        Cookies.set('token', result.data.token);
-        Cookies.set("id", result.data.user.userId);
-        console.log(result.data.user.userId, "userId");
-        console.log("done");
+    axios.post(`http://localhost:8080/auth/login`, { email: email, password: password })
+      .then((res) => {
+        const decoded = jwtDecode(res.data.token)
+        Cookies.set('token', res.data.token);
+        Cookies.set("id", res.data.user.userId);
         
       })
       .catch((err) => {

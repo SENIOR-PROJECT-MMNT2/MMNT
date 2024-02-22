@@ -11,12 +11,16 @@ import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import Header from "../client/header/page"
 interface Wish {
-  idWishList: number;
+  
+idWishlist: number;
   file: string;
   name: string;
   price: string;
+}
+interface refre{
+
 }
 
 const ReviewIcon: React.FC<{ rating: number }> = ({ rating }) => {
@@ -29,26 +33,28 @@ const ReviewIcon: React.FC<{ rating: number }> = ({ rating }) => {
 
 const WhishList = () => {
   const [wishes, setWishes] = useState<Wish[]>([]);
-
+  const[refresh,setRefresh]=useState(false)
   useEffect(() => {
-    axios.get<Wish[]>(`http://localhost:3000/fav/getall`)
+    axios.get<Wish[]>(`http://localhost:8080/fav/getall`)
       .then(result => {
         console.log('wish', result.data);
         setWishes(result.data);
       }).catch(err => console.log(err));
-  }, []);
+  }, [refresh]);
 
-  const deleted = (idWishlist: number) => {
-    axios
-      .delete(`http://localhost:3000/fav/delete/${idWishlist}`)
+  const deleted = (idWishlist: number ) => {
+
+    axios.delete(`http://localhost:8080/fav/delete/${idWishlist}`)
       .then(() => {
         console.log("deleted fav");
+        setRefresh(!refresh)
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div style={{ width: "100%", height: "100vh", borderTop: "1px solid black"}}>
+      <Header/>
       <div style={{ width: "100%", display: "flex" }}>
         <h1 style={{ marginTop: 60, marginLeft: 40, borderBottom: 1 }}>wishlist({wishes.length})</h1>
       </div>
@@ -56,7 +62,7 @@ const WhishList = () => {
       <div style={{ width: "100%", margin: "auto", marginTop: 10 }}>
         {wishes.map((e) => (
           <Card
-            key={e.idWishList}
+        
             sx={{ width: 300, height: 300, margin: "auto", marginLeft: 8, display: "inline-block", marginTop: 15 }}
           >
             <CardMedia component="img" height="160px" image={e.file} alt="Product" />
@@ -79,7 +85,7 @@ const WhishList = () => {
             >
               ADD TO THE CART
             </Button>
-            <DeleteIcon onClick={() => { deleted(e.idWishList) }} />
+            <DeleteIcon onClick={() => { deleted(e.idWishlist) ,console.log(e.idWishlist) }} />
           </Card>
         ))}
       </div>

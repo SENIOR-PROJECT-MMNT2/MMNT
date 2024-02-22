@@ -33,7 +33,7 @@ export default function Signup () {
       role: role,
     };
 
-    axios.post<{ token: string }>('http://localhost:3000/auth/signup', postData)
+    axios.post<{ token: string }>('http://localhost:8080/auth/signup', postData)
       .then((result) => {
         console.log("signed in");
         Cookies.set('token', result.data.token);

@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const con=require('../database/index')
 // const User = require('../database/Models/User')
-const PORT = 3000
+const PORT = 8080
 const app = express()
 const productRouter =require('../server/Routes/products')
 
