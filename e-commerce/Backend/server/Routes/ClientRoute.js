@@ -1,6 +1,7 @@
 const clientRouter = require('express').Router();
 const {updateClient,getClient,addClient,getSome,getOneClient,deleteClient,updateUserRole} = require('../Controller/Client');
 
+
 clientRouter.put('/update/:userId',updateClient)
 clientRouter.put('/updateRole/:userId',updateUserRole)
 clientRouter.get("/getAll",getClient)
