@@ -23,7 +23,7 @@ const add = function (req, res) {
 
 const del = function (req, res) {
   const del= wishlist.destroy({where:
-    {idWishlist:req.params.idWishlist,
+    {idWishlist:req.params.idWishlist
 
   }}).then((result)=>{
     res.json(result)

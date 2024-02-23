@@ -4,7 +4,7 @@ const {check}= require('../Controller/authorization')
 
 
 wishrouter.get('/getall',getAll)
-wishrouter.post('/add',check,add)
+wishrouter.post('/add',add)
 wishrouter.delete('/delete/:idWishlist',check,del)
 
 module.exports= wishrouter;
