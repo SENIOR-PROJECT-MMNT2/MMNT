@@ -15,10 +15,11 @@ import Header from "../client/header/page"
 
 interface Wish {
   
-idWishlist: number;
-  file: string;
+  idWishlist: number;
+  img: string;
   name: string;
   price: string;
+
 }
 interface refre{
 
@@ -43,8 +44,15 @@ const WhishList = () => {
       }).catch(err => console.log(err));
   }, [refresh]);
 
-  const deleted = (idWishlist: number ) => {
 
+const  getImg = (productProdId:number)=>{
+  axios.get(`http://localhost:8080/get/${productProdId}`)
+  .then(()=>{console.log("geted")})
+  .catch((err)=>{console.log(err)})
+}
+ 
+
+  const deleted = (idWishlist: number ) => {
     axios.delete(`http://localhost:8080/fav/delete/${idWishlist}`)
       .then(() => {
         console.log("deleted fav");
@@ -54,7 +62,7 @@ const WhishList = () => {
   };
 
   return (
-    <div style={{ width: "100%", height: "100vh", borderTop: "1px solid black"}}>
+    <div style={{   background:"#F3F3F3 ", width: "100%", height: "100vh", borderTop: "1px solid black"}}>
       <Header/>
       <div style={{ width: "100%", display: "flex" }}>
         <h1 style={{ marginTop: 60, marginLeft: 40, borderBottom: 1 }}>wishlist({wishes.length})</h1>
@@ -66,7 +74,7 @@ const WhishList = () => {
         
             sx={{ width: 300, height: 300, margin: "auto", marginLeft: 8, display: "inline-block", marginTop: 15 }}
           >
-            <CardMedia component="img" height="160px" image={e.file} alt="Product" />
+            <CardMedia component="img" height="160px" image={e.img} alt="Product" />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {e.name} - {e.price}
@@ -78,7 +86,7 @@ const WhishList = () => {
                 <FavoriteIcon />
               </IconButton>
             </CardActions>
-            <Button
+            <Button 
               onClick={() => {}}
               sx={{ marginLeft: 20, marginTop: 5, backgroundColor: "black", width: "auto" }}
               variant="contained"
@@ -86,7 +94,7 @@ const WhishList = () => {
             >
               ADD TO THE CART
             </Button>
-            <DeleteIcon onClick={() => { deleted(e.idWishlist) ,console.log(e.idWishlist) }} />
+            <DeleteIcon onClick={() => {deleted(e.idWishlist) ,console.log(e.idWishlist) }} />
           </Card>
         ))}
       </div>

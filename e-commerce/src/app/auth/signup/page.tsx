@@ -46,7 +46,7 @@ export default function Signup () {
   }
 
     return (
-      <div>
+      <div  style={{background:"#F3F3F3 "}}>
 <div className="w-full h-12   border-b border-gray-200 py-6 justify-center items-center inline-flex">
   <div className=" flex justify-start items-start w-4/5 inline-flex">
     <div className="justify-start items-center gap-2 flex">
@@ -63,7 +63,7 @@ export default function Signup () {
   </div>
 </div>
       <section>
-        <div className='container flex flex-row'>
+        <div className='container flex flex-row '>
           <div className=" w-3/5">
             <img className="h-full w-full" src="https://shorturl.at/cKNS3" alt="" />
           </div>

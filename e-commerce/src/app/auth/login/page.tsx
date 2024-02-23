@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { jwtDecode } from "jwt-decode"
 import Link from "next/link";
 
 interface LoginData {
@@ -25,24 +24,24 @@ export default function Login() {
 const loging = (): void => {
   axios.post(`http://localhost:8080/auth/login`, { email: email, password: password })
     .then((res) => {
-      const decoded: DecodedToken = jwtDecode(res.data.token);
       Cookies.set('token', res.data.token);
       Cookies.set("id", res.data.user.userId);
-      setData({
-        id: decoded.id,
-        firstName: decoded.firstName,
-        lastName: decoded.lastName,
-        role: decoded.role
+      console.log(res.data)    
+        setData({
+        id: res.data.user.userId,
+        firstName: res.data.user.firstName,
+        lastName: res.data.user.lastName,
+        role: res.data.user.role
       });
     })
     .catch((err) => {
       console.log(err);
     });
 };
-
+console.log(data,"data")
 
   return (
-    <div>
+    <div style={{background:"#F3F3F3 "}}>
       <div className="w-full h-12   border-b border-gray-200 py-6 justify-center items-center inline-flex">
   <div className=" flex justify-start items-start w-4/5 inline-flex">
     <div className="justify-start items-center gap-2 flex">
@@ -89,14 +88,14 @@ const loging = (): void => {
               <button 
                 type="button"
                 className="focus:outline-none w-full text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                onClick={loging}>  Log in</button>
+                onClick={loging}>Log in</button>
                 {data && (
         <>
           {data.role === "admin" && (
             <Link href="admin"><a>Admin Dashboard</a></Link>
           )}
           {data.role === "client" && (
-            <Link href="client"><a>Client Dashboard</a></Link>
+            <Link href="/"><a>Client Dashboard</a></Link>
           )}
           {data.role === "seller" && (
             <Link href="seller"><a>Seller Dashboard</a></Link>
