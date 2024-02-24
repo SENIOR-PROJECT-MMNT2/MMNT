@@ -28,7 +28,9 @@ module.exports ={
     },
     getImage : async(req,res) => {
         try {
-        const categories=await db.Image.findAll({});
+        const categories=await db.Image.findAll({
+            where :  {productProdId:req.params.idprod}
+        });
         res.json(categories) }
          catch (error) {res.send(error) }
     },

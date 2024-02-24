@@ -4,18 +4,32 @@ import Nav from '../nav/page';
 import Accueil  from '../accueil/page';
 import BestSelling from '../bestselleing/page';
 import Sales from '../sales/page';
+import Exploreproducts from '../exploreproduct/page';
+import New from '../new product/page';
+import Footer from '../footer/page';
 function page() {
   
   return (
-    <div>
+    <div style={{background:'#F3F3F3'}}>
       <Header/>
       <Nav/>
       <Accueil/>
       <Sales/>
-      <div className='flex justify-center items-center my-10'>
-        <img className='h-[400px] w-3/5 border rounded-lg' src="https://i.pinimg.com/originals/30/2f/8d/302f8dfbdae1fe192c677c86b0cb3e07.jpg" alt="" />
+      <div className='flex justify-center items-center w-full'>
+      <div className=' w-full'>
+      <video style={{height:"70vh"}} className='w-full rounded-2xl'  preload='auto' loop  autoPlay muted>
+  <source className='w-full h-full rounded-2xl' src="https://www.apple.com/105/media/us/mac/family/2023/1b2bbf5c-ddc5-44a1-9dfb-7a51c49143fa/anim/welcome/xlarge.mp4" type="video/mp4" />
+</video>
+
+</div>
       </div>
+      
+
       <BestSelling/>
+      <Exploreproducts/>
+      <New/>
+      <Footer/>
+
     </div>
   )
 }

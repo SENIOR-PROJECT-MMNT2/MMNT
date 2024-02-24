@@ -6,10 +6,10 @@ import { Carousel } from 'flowbite-react';
 function Accueil() {
   return (
     <div className='flex justify-center items-centerw-full'>
-        <div className="mt-7  w-3/5 h-[500px]">
+        <div className="mt-7  w-3/5 h-[600px]">
       <Carousel className=''>
-        <img  src="https://shorturl.at/js567" alt="..." />
-        <img src="https://shorturl.at/qNT29" alt="..." />
+        <img  src="https://shorturl.at/tvwS5" alt="..." />
+        <img src="https://corriente.top/wp-content/uploads/2022/03/iphone-13-13pro-green.jpg" alt="..." />
         
       </Carousel>
     </div>
