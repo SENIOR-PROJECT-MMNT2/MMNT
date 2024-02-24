@@ -16,13 +16,18 @@ import Header from "../client/header/page"
 interface Wish {
   
   idWishlist: number;
-  images: string;
-  name: string;
-  price: string;
-
+   name: string;
+  price: number;
+  prodId:number;
+  description:string;
+quantity:number
 }
 interface refre{
 
+}
+interface Image{
+  image:string;
+  imgId:number
 }
 
 const ReviewIcon: React.FC<{ rating: number }> = ({ rating }) => {
@@ -35,23 +40,23 @@ const ReviewIcon: React.FC<{ rating: number }> = ({ rating }) => {
 
 const WhishList = () => {
   const [wishes, setWishes] = useState<Wish[]>([]);
-  const [images, setImages] = useState<[]>([]);
+  const [images, setImages] = useState< Image[]>([]);
   const[refresh,setRefresh]=useState(false)
 
   useEffect(() => {
-    axios.get<Wish[]>(`http://localhost:8080/fav/getall`)
+    axios.get<Wish[]>(`http://localhost:8080/fav/getall/15`)
       .then(result => {
         console.log('wish', result.data);
         setWishes(result.data);
       }).catch(err => console.log(err));
-
+      
     
-      //   axios.get(`http://localhost:8080/img/get/1`)
-      //   .then((res)=>{console.log("geted")
-      //   setImages(res.data[0])
-      //   console.log(res,"img")
-      // })
-      // .catch((err) => console.log(err));
+        axios.get(`http://localhost:8080/img/get/1`)
+        .then((res)=>{console.log("geted")
+        setImages(res.data[0])
+        console.log(res,"img")
+      })
+      .catch((err) => console.log(err));
       
   }, [refresh]);
 
@@ -81,7 +86,7 @@ const WhishList = () => {
           <IconButton  sx={{ color: "#17998a"}} className="absolute top-0 right-0 left-64" onClick={() => deleted(e.idWishlist)}>
               <DeleteIcon />
             </IconButton>
-            <CardMedia    component="img" height="160px" image={images.img} alt="Product" /> 
+            <CardMedia component="img" height="160px" image= {images.img} alt="Product" />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {e.name} - {e.price}

@@ -3,18 +3,37 @@ const {Product}=require("../../database/Models/Product")
 
 
 
+// const getAll = function (req, res) {
+//   const get = Product.findAll({
+//     include: [{ model: wishlist }],
+//     where: { productId: req.params.id}
+//   })
+//   .then((result)=>{
+//     res.status(201).send(get)
+//   })
+//   .catch((error)=>{
+//     res.send(error)
+//   })
+//   }
 const getAll = function (req, res) {
-  const get = Product.findAll({
-    include: [{ model: wishlist }],
-    where: { productId: req.params.productId }
+  wishlist.findAll({
+    where: { userId: req.params.id }
   })
-  .then((result)=>{
-    res.status(201).send(result)
+  .then(items => {
+    const productPromises = items.map(item => {
+      const prodId = item.productId;
+      return Product.findAll({ where: { prodId: prodId } });
+    });
+    return Promise.all(productPromises);
   })
-  .catch((error)=>{
-    res.send(error)
+  .then(products => {
+    res.status(201).send(products);
   })
-  }
+  .catch(error => {
+    res.status(500).send(error);
+  });
+};
+
  
 const add = function (req, res) {
   const add= wishlist.create(req.body).then((result)=>{
