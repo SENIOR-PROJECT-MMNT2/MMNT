@@ -46,7 +46,7 @@ export default function Signup () {
   }
 
     return (
-      <div  style={{background:"#F3F3F3 "}}>
+      <div >
 <div className="w-full h-12   border-b border-gray-200 py-6 justify-center items-center inline-flex">
   <div className=" flex justify-start items-start w-4/5 inline-flex">
     <div className="justify-start items-center gap-2 flex">
@@ -62,16 +62,14 @@ export default function Signup () {
   <div className="text-center text-black text-sm font-semibold font-['Poppins'] underline leading-normal">ShopNow</div>
   </div>
 </div>
-      <section>
-        <div className='container flex flex-row '>
-          <div className=" w-3/5">
-            <img className="h-full w-full" src="https://shorturl.at/cKNS3" alt="" />
-          </div>
-          <div className= " w-2/5 mx-auto  space-y-12" >
-            <div className=" p-16">
+      <section className="bg-[length:1350px_700px] bg-center bg-no-repeat " style={{backgroundImage:`url('https://www.jeffbullas.com/wp-content/uploads/2022/04/The-10-Best-B2B-eCommerce-Websites-For-Business-Growth.jpg')`}}>
+        <div className='container flex flex-row'>
+          <div style={{marginRight:10,border:8,padding:44}} className= " w-2/5 mx-auto  space-y-12 " >
+            <div style={{border:8}} className=" p-16 shadow-md bg-slate-200 bg-opacity-25 rounded-3xl">
             <h1 className='text-4xl font-semibold text-gray-900 text-black-500 '>Create an account</h1>
             <p className= "text-black-500 text-xl font-semibold text-gray-700 " > Enter your details below </p>
             <div className="grid md:grid-cols-2 md:gap-10">
+              
               <div className="relative z-0 w-full mb-5 group">
                 <input
                   type="text"
@@ -164,7 +162,7 @@ export default function Signup () {
             <div className="flex justify-end items-center">
               <button
                 type="button"
-                className="focus:outline-none text-white mt-10 bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                className="focus:outline-none text-white mt-10 bg-black hover:bg-slate-300 hover:text-black focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
                 onClick={signup}
               ><Link href="/auth/login">
                 Confirm

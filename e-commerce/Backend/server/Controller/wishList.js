@@ -1,10 +1,14 @@
 const {wishlist}=require("../../database/Models/WishList")
-
+const {Product}=require("../../database/Models/Product")
 
 
 
 const getAll = function (req, res) {
-  const get= wishlist.findAll({}).then((result)=>{
+  const get = Product.findAll({
+    include: [{ model: wishlist }],
+    where: { productId: req.params.productId }
+  })
+  .then((result)=>{
     res.status(201).send(result)
   })
   .catch((error)=>{

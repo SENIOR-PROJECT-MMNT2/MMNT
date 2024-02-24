@@ -16,7 +16,7 @@ import Header from "../client/header/page"
 interface Wish {
   
   idWishlist: number;
-  img: string;
+  images: string;
   name: string;
   price: string;
 
@@ -35,21 +35,28 @@ const ReviewIcon: React.FC<{ rating: number }> = ({ rating }) => {
 
 const WhishList = () => {
   const [wishes, setWishes] = useState<Wish[]>([]);
+  const [images, setImages] = useState<[]>([]);
   const[refresh,setRefresh]=useState(false)
+
   useEffect(() => {
     axios.get<Wish[]>(`http://localhost:8080/fav/getall`)
       .then(result => {
         console.log('wish', result.data);
         setWishes(result.data);
       }).catch(err => console.log(err));
+
+    
+      //   axios.get(`http://localhost:8080/img/get/1`)
+      //   .then((res)=>{console.log("geted")
+      //   setImages(res.data[0])
+      //   console.log(res,"img")
+      // })
+      // .catch((err) => console.log(err));
+      
   }, [refresh]);
 
 
-const  getImg = (productProdId:number)=>{
-  axios.get(`http://localhost:8080/get/${productProdId}`)
-  .then(()=>{console.log("geted")})
-  .catch((err)=>{console.log(err)})
-}
+
  
 
   const deleted = (idWishlist: number ) => {
@@ -68,13 +75,13 @@ const  getImg = (productProdId:number)=>{
         <h1 style={{ marginTop: 60, marginLeft: 40, borderBottom: 1 }}>wishlist({wishes.length})</h1>
       </div>
 
-      <div style={{ width: "100%", margin: "auto", marginTop: 10 }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4" >
         {wishes.map((e) => (
-          <Card
-        
-            sx={{ width: 300, height: 300, margin: "auto", marginLeft: 8, display: "inline-block", marginTop: 15 }}
-          >
-            <CardMedia component="img" height="160px" image={e.img} alt="Product" />
+          <Card  className="w-full">
+          <IconButton  sx={{ color: "#17998a"}} className="absolute top-0 right-0 left-64" onClick={() => deleted(e.idWishlist)}>
+              <DeleteIcon />
+            </IconButton>
+            <CardMedia    component="img" height="160px" image={images.img} alt="Product" /> 
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {e.name} - {e.price}
@@ -83,18 +90,15 @@ const  getImg = (productProdId:number)=>{
             </CardContent>
             <CardActions disableSpacing>
               <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
               </IconButton>
             </CardActions>
             <Button 
               onClick={() => {}}
-              sx={{ marginLeft: 20, marginTop: 5, backgroundColor: "black", width: "auto" }}
+              className= "mt-2"  sx={{ backgroundColor: "#17998a", width: "auto" }}
               variant="contained"
-              disableElevation
-            >
+              disableElevation >
               ADD TO THE CART
             </Button>
-            <DeleteIcon onClick={() => {deleted(e.idWishlist) ,console.log(e.idWishlist) }} />
           </Card>
         ))}
       </div>
