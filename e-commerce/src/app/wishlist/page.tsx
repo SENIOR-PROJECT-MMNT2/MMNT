@@ -12,7 +12,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Header from "../client/header/page"
-
+import Cookies from 'js-cookie';
 interface Wish {
   
   idWishlist: number;
@@ -40,23 +40,14 @@ const ReviewIcon: React.FC<{ rating: number }> = ({ rating }) => {
 
 const WhishList = () => {
   const [wishes, setWishes] = useState<Wish[]>([]);
-  const [images, setImages] = useState< Image[]>([]);
   const[refresh,setRefresh]=useState(false)
-
+  const[id,setId]=useState(Cookies.get("id"))
   useEffect(() => {
-    axios.get<Wish[]>(`http://localhost:8080/fav/getall/15`)
+    axios.get<Wish[]>(`http://localhost:8080/fav/getall/${id}`)
       .then(result => {
         console.log('wish', result.data);
         setWishes(result.data);
       }).catch(err => console.log(err));
-      
-    
-        axios.get(`http://localhost:8080/img/get/1`)
-        .then((res)=>{console.log("geted")
-        setImages(res.data[0])
-        console.log(res,"img")
-      })
-      .catch((err) => console.log(err));
       
   }, [refresh]);
 
@@ -83,13 +74,12 @@ const WhishList = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4" >
         {wishes.map((e) => (
           <Card  className="w-full">
-          <IconButton  sx={{ color: "#17998a"}} className="absolute top-0 right-0 left-64" onClick={() => deleted(e.idWishlist)}>
-              <DeleteIcon />
-            </IconButton>
-            <CardMedia component="img" height="160px" image= {images.img} alt="Product" />
+            <CardMedia component="img" height="160px" image= {e.product.images.map((el)=>{
+              return el.img
+            })} alt="Product" />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
-                {e.name} - {e.price}
+                {e.product.name} - ${e.product.price}
                 <ReviewIcon rating={4} />
               </Typography>
             </CardContent>
@@ -97,9 +87,12 @@ const WhishList = () => {
               <IconButton aria-label="add to favorites">
               </IconButton>
             </CardActions>
+            <IconButton  sx={{ color: "#17998a"}} className="absolute top-0 right-0 left-64" onClick={() => deleted(e.idWishlist)}>
+              <DeleteIcon />
+            </IconButton>
             <Button 
               onClick={() => {}}
-              className= "mt-2"  sx={{ backgroundColor: "#17998a", width: "auto" }}
+              className= "mt-2 rigth-20"  sx={{ backgroundColor: "#17998a", width: "auto" }}
               variant="contained"
               disableElevation >
               ADD TO THE CART

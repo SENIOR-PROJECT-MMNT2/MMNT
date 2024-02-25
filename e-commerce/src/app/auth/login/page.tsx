@@ -26,6 +26,7 @@ const loging = (): void => {
     .then((res) => {
       Cookies.set('token', res.data.token);
       Cookies.set("id", res.data.user.userId);
+      console.log("cookies",Cookies.get("id"))
       console.log(res.data)    
         setData({
         id: res.data.user.userId,
@@ -60,8 +61,8 @@ console.log(data,"data")
      
       <section className="bg-[length:1350px_700px] bg-center bg-no-repeat " style={{backgroundImage:`url('https://www.jeffbullas.com/wp-content/uploads/2022/04/The-10-Best-B2B-eCommerce-Websites-For-Business-Growth.jpg')`}}>
         <div className='container flex flex-row'>
-          <div  style={{marginRight:10,border:8,padding:44}} className= " w-2/5 mx-auto  space-y-12 " >
-            <div style={{border:8}} className=" p-16">
+          <div  style={{marginRight:10,border:8,padding:44}} className= " w-2/5 mx-auto  space-y-12 "  >
+            <div style={{border:8}} className=" p-16 shadow-md bg-slate-200 bg-opacity-25 rounded-3xl">
               <h1 className='text-4xl font-semibold text-gray-900 text-black-500'>Log in to Exclusive</h1>
             <p className="text-black-500 text-xl font-semibold text-gray-700">Enter your details below</p>
            
@@ -81,12 +82,13 @@ console.log(data,"data")
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            <p className="text-black ml-40 mt-2" onClick={() => { }}>Forget Password ?</p>
             
             </div>
             <div style={{ display: "flex", justifyContent: "flex-end" }} className=''>
               <button 
                 type="button"
-                className="focus:outline-none  text-white mt-10 bg-black hover:bg-slate-300 hover:text-black focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                className="focus:outline-none  text-white mt-10 bg-black hover:bg-slate-300 hover:text-black focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-40 mr-20"
                 onClick={loging}>Log in</button>
                 {data && (
         <>
@@ -101,7 +103,7 @@ console.log(data,"data")
           )}
         </>
       )}
-              <p className="text-black " onClick={() => { }}>Forget Password ?</p>
+             
             </div>
             </div>
              </div>

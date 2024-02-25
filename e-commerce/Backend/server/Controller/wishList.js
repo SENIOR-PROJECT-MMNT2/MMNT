@@ -1,6 +1,7 @@
 const {wishlist}=require("../../database/Models/WishList")
 const {Product}=require("../../database/Models/Product")
-
+const { assert } = require("console")
+const{Image}=require("../../database/Models/Image")
 
 
 // const getAll = function (req, res) {
@@ -15,23 +16,26 @@ const {Product}=require("../../database/Models/Product")
 //     res.send(error)
 //   })
 //   }
-const getAll = function (req, res) {
-  wishlist.findAll({
-    where: { userId: req.params.id }
+const getAll = async (req, res)=> {
+try{
+ const wish= await wishlist.findAll({
+    where: { userId: req.params.id },
+    include:[{
+    model:Product,
+    required:true,
+    include:[{
+      model:Image,
+      required:true
+    }]
+    }]
   })
-  .then(items => {
-    const productPromises = items.map(item => {
-      const prodId = item.productId;
-      return Product.findAll({ where: { prodId: prodId } });
-    });
-    return Promise.all(productPromises);
-  })
-  .then(products => {
-    res.status(201).send(products);
-  })
-  .catch(error => {
-    res.status(500).send(error);
-  });
+  res.send(wish)
+}
+ catch(err){
+  console.log(err)
+ }
+ 
+  
 };
 
  
