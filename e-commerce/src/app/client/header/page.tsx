@@ -4,7 +4,7 @@ import { BiUser } from "react-icons/bi";
 import { FiHeart } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 
-const Nav = () => {
+const  Nav = () => {
   return (
     <div>
         <div className="w-full h-12  py-3 bg-black justify-center items-center inline-flex">

@@ -1,5 +1,6 @@
 const {cart} = require('../../database/Models/cart')
-
+const {Product} = require('../../database/Models/Product.js')
+const {Image} = require('../../database/Models/Image')
 const getAll = function (req, res) {
     const user=  cart.findAll({}).then((result)=>{
       res.status(201).send(result)
@@ -35,10 +36,29 @@ const getAll = function (req, res) {
       res.send(error)
     })
     }
+  const getProductincart= async (req,res)=>{
+const user=req.params.id
+      try {
+        const productsInCart = await cart.findAll({
+          where: { userId:user },
+          include: [{
+            model: Product,
+            required: true,
+            include: [{
+              model: Image,
+              required: true
+            }]
+          }]
+        });
+        res.send(productsInCart)
+      } catch (error) {
+        console.error('Error retrieving products in cart:', error);
+      }
+    }
   
   
   
   
   
   
-    module.exports={getAll, add ,del}
+    module.exports={getAll, add ,del,getProductincart}
