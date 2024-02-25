@@ -28,6 +28,8 @@ import { Bar } from 'react-chartjs-2';
 export default function Charts() {
 const[sellers,setSellers]=useState([])
 const[buyers,setBuyers]=useState([])
+const[products,setProducts]=useState([])
+const [allusers,setAllusers]=useState([])
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 const [data, setData] = useState({
   labels: labels,
@@ -58,6 +60,20 @@ useEffect(()=>{
   .catch((err)=>{
     console.log(err)
   })
+  axios.get('http://localhost:8080/apii/product')
+  .then((res)=>{
+    setProducts(res.data)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+  axios.get('http://localhost:8080/client/getAll')
+.then((res)=>{
+console.log(res.data);
+setAllusers(res.data)
+})
+.catch((err)=>{console.log(err);
+})
 },[])
 
 
@@ -68,7 +84,7 @@ useEffect(()=>{
 <Sidebar/>
 </div>
 <div>
-    <Navbar/>
+<Navbar/>
 </div>
 
 <div style={{marginLeft:"1100px",marginTop:"-52px"}} >
@@ -92,18 +108,52 @@ useEffect(()=>{
 <Bar data={data} />
 </div>
 
-<div style={{marginLeft:"320px",marginTop:"-600px"}}>
+<div style={{marginLeft:"390px",marginTop:"-600px",flexDirection:"row",display:"flex",gap:"120px"}}>
 
 <a
   href="#"
-  className="block max-w-100px p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
->
+  className="block w-40 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+>       
   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-    Welcome back Admin
+   Products
   </h5>
-  <p className="font-normal text-gray-700 dark:text-gray-400">
-    Here you find charts to know how many sellers and clients you have on the site also the 
-    products sales sorted by mounth
+  <p className=" ml-9 font-normal text-gray-700 dark:text-gray-400">
+  {products.length}
+  </p>
+</a>
+<a
+  href="#"
+  className="block w-40 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+>       
+  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+   Users
+  </h5>
+  <p className=" ml-9 font-normal text-gray-700 dark:text-gray-400">
+  {allusers.length}
+  </p>
+</a>
+
+<a
+  href="#"
+  className="block w-40 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+>       
+  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+   Reviews
+  </h5>
+  <p className=" ml-9 font-normal text-gray-700 dark:text-gray-400">
+  {products.length}
+  </p>
+</a>
+
+<a
+  href="#"
+  className="block w-40 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+>       
+  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+   Reports
+  </h5>
+  <p className=" ml-9 font-normal text-gray-700 dark:text-gray-400">
+  {products.length}
   </p>
 </a>
   

@@ -13,7 +13,7 @@ const authrouter=require('./Routes/authRoute')
 const wishrouter=require('./Routes/wishRoute')
 const ImageRouter=require('../server/Routes/ImgRoute')
 const cartRouter=require('./Routes/cartRoute')
-
+const paymentRouter=require('./Routes/payment.js')
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -33,7 +33,7 @@ app.use('/img',ImageRouter)
 
 app.use('/cartt', cartRouter)
 
-
+app.use('/payment',paymentRouter)
 app.listen(PORT, ()=>{
     console.log(`listening on http://localhost:${PORT}`);
 })
