@@ -67,7 +67,7 @@ useEffect(()=>{
   .catch((err)=>{
     console.log(err)
   })
-  axios.get('http://localhost:8080/client/getAll')
+  axios.get('http://localhost:8080/client/getAlle')
 .then((res)=>{
 console.log(res.data);
 setAllusers(res.data)
@@ -78,7 +78,8 @@ setAllusers(res.data)
 
 
 
-  return (
+
+return (
 <div>
 <div>
 <Sidebar/>

@@ -20,7 +20,7 @@ export default function Tables() {
  const [users,setUsers]=useState<users[]>([]) 
 
 useEffect(()=>{
-axios.get('http://localhost:8080/client/getAll')
+axios.get('http://localhost:8080/client/getAlle')
 .then((res)=>{
 console.log(res.data);
 setUsers(res.data)
