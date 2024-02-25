@@ -82,8 +82,7 @@ const UpdatePro = async(req,res) => {
                     name:req.body.name,
                     description:req.body.description,
                     price:req.body.price,
-                    categoryCatId:req.body.categoryCatId,
-                    file:req.body.file,
+                    quantity:req.body.quantity,
             },{where:{prodId:req.params.prodId}})
             res.json(updated)
         }
@@ -92,6 +91,6 @@ const UpdatePro = async(req,res) => {
 
 
 
-module.exports={AllPro,GetOnePro,AddPro,DeletePro,UpdatePro,GetOneByUser,AddProimg,getProimg ,UpdateRating,updateSellerProd}
+module.exports={AllPro,AllProSeller ,GetOnePro,AddPro,DeletePro,UpdatePro,GetOneByUser,AddProimg,getProimg ,UpdateRating,updateSellerProd}
 
 

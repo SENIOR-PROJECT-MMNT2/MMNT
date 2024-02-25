@@ -7,7 +7,10 @@ import { FiHeart } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import Link from "next/link";
 const Nav = () => {
-  const params = useParams<{ Id: string }>();
+const params = useParams<{ Id: string }>();
+
+const  Nav = () => {
+
   return (
     <div>
         <div className="w-full h-12  py-3 bg-black justify-center items-center inline-flex">
