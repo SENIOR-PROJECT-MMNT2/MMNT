@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { GrFavorite } from "react-icons/gr";
 import { MdFavorite } from "react-icons/md";
 import { CiStar } from "react-icons/ci";
+import Link from "next/link";
 
 interface Product {
   categoryCatId: number;
@@ -120,28 +121,27 @@ function Productsales({ prod }: ProductsProps) {
       </div>
 
       <div className="px-5 pb-5">
-        <a href="#">
+        <Link href={`/client/productpage/${prod.prodId}`}>
           <h5 className="h-5 font-semibold tracking-tight text-gray-900 mb-10">
             {prod.name}
           </h5>
-        </a>
+        </Link>
         <div>
           <div className=" font-semibold flex">
             Rated
             <div className="flex">
-            {Array.from({ length: 5 }, (_, i) => (
-              <CiStar
-                key={i}
-                className={
-                  i < (averageRating || 0)
-                    ? "text-green-400 cursor-pointer "
-                    : "text-gray-400 cursor-pointer"
-                }
-                size={25}
-              />
-            ))}
+              {Array.from({ length: 5 }, (_, i) => (
+                <CiStar
+                  key={i}
+                  className={
+                    i < (averageRating || 0)
+                      ? "text-green-400 cursor-pointer "
+                      : "text-gray-400 cursor-pointer"
+                  }
+                  size={25}
+                />
+              ))}
             </div>
-            
           </div>
         </div>
         <div className="flex items-center mt-2.5 mb-5">

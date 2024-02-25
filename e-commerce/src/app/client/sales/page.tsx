@@ -15,8 +15,7 @@ interface products {
 
 function Sales(){
 
- const [product,setProduct]=useState<products[]>([])
-
+const [product,setProduct]=useState<products[]>([])
  useEffect(()=>{
   axios.get('http://localhost:8080/apii/product')
   .then((res)=>{
