@@ -84,7 +84,7 @@ setAllusers(res.data)
 <Sidebar/>
 </div>
 <div>
-    <Navbar/>
+<Navbar/>
 </div>
 
 <div style={{marginLeft:"1100px",marginTop:"-52px"}} >

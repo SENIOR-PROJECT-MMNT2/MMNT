@@ -33,11 +33,11 @@ export default function clients() {
   
 return (
     <div>
-        <div>
-            <Navbar/>
-        </div>
-        <div>
+        <div >
             <Sidebar/>
+        </div>
+        <div >
+            <Navbar/>
         </div>
         <div style={{width:"900px",marginLeft:"400px",marginTop:"-200px",backgroundColor:"#111827"}} >
 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

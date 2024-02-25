@@ -3,7 +3,7 @@ import Navbar from "./components/navbar"
 export default function(){
     return(
        
-<div style={{backgroundColor:"black"}} >
+<div >
 <Sidebar />
 <Navbar />
 

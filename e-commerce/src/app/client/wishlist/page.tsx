@@ -11,8 +11,9 @@ import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
-import Header from "../client/header/page"
+import Header from "../header/page"
 import Cookies from 'js-cookie';
+import Link from "next/link";
 interface Wish {
   
   idWishlist: number;
@@ -66,6 +67,7 @@ const WhishList = () => {
 
   return (
     <div style={{   background:"#F3F3F3 ", width: "100%", height: "100vh", borderTop: "1px solid black"}}>
+
       <Header/>
       <div style={{ width: "100%", display: "flex" }}>
         <h1 style={{ marginTop: 60, marginLeft: 40, borderBottom: 1 }}>wishlist({wishes.length})</h1>

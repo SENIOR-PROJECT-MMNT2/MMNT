@@ -36,7 +36,7 @@ const getAll = function (req, res) {
       res.send(error)
     })
     }
-    const getProductincart= async (req,res)=>{
+  const getProductincart= async (req,res)=>{
 const user=req.params.id
       try {
         const productsInCart = await cart.findAll({

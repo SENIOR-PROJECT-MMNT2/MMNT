@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../header/page';
-
+import Cookies from 'js-cookie';
 interface Product {
   prodId: number;
   name: string;
@@ -20,8 +20,10 @@ export default function Cart() {
   const [products, setProducts] = useState<CartItem[]>([]);
   const [total, setTotal] = useState<number>(0);
 const [refresh,setRefresh]=useState<boolean>(false)
+const[id,setId]=useState(Cookies.get("id"))
+console.log(id)
   useEffect(() => {
-    axios.get<CartItem[]>('http://localhost:8080/cartt/getpro/3')
+    axios.get<CartItem[]>(`http://localhost:8080/cartt/getpro/3`)
       .then((res) => {
         console.log(res.data)
         setProducts(res.data);
@@ -41,6 +43,7 @@ const [refresh,setRefresh]=useState<boolean>(false)
   };
 
   const pay=()=>{
+    
    axios.post('http://localhost:8080/payment/pay',{amount:total})
    .then((res)=>{
    const {result}=res.data
