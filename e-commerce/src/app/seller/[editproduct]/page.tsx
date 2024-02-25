@@ -1,45 +1,39 @@
- "use client"
- import { CldUploadWidget } from 'next-cloudinary';
+"use client"
+
  import Link from "next/link";
 import axios from "axios"
 import React,{useState,useEffect} from 'react'
+
 interface products {
   name:string,
   description:string
   price:string,
   image:string,
   quantity:number,
+  prodId:number,
 }
-interface categorys{
-  content:string,
-}
-export default function(){
 
- const [products,setProducts]=useState<products[]>([]) 
- const [category,setCategory]=useState<categorys[]>([])
- const [name, setname] = useState('');
-const [description, setDescription] = useState('');
-const [price, setPrice] = useState('')
-const [ quantity,setQuantity]=useState('')
-const [info, updateInfo] = useState();
-const [error, updateError] = useState();
- 
- useEffect(()=>{
-  axios.get(`http://localhost:8080/category/getAll`).then((res)=>{
-    setCategory(res.data)
-    console.log("this is category",res.data)
+
+
+export default function({params}:{params:any}){
+  console.log(params.editproduct) 
+  const [name, setname] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('')
+  const [ quantity,setQuantity]=useState('')
+
+  
+  const update=(content:object)=>{
+    axios
+  .put(`http://localhost:8080/apii/update/${params.editproduct}`,content)
+  .then((res) => {
+    console.log(res.data, 'res');
+    alert('You successfully updated your account');
   })
-  .catch((err)=>{console.log(err)})
-},[])
-
-const addProd=(content:object)=>{
-  axios.post(`http://localhost:8080/apii/addproduct`,content)
-  .then(()=>{console.log("added")})
-  .catch(()=>{console.log("error")})
+  .catch((err) => console.log(err));
 }
-
     return(
-  <div className='background-color: rgb(	243, 243, 243 ) '>;   
+        <div className='background-color: rgb(	243, 243, 243 ) '>;   
   <div>
   <div>
    <div style={{display:'flex',width:'100%'}}>
@@ -96,31 +90,7 @@ const addProd=(content:object)=>{
 </div>
 </div>
 </div>
-<>
-{/* component */}
-<div style={{marginTop:"-750px"}} >
-<div>
-<div className="w-64 p-2 m-auto bg-white shadow-lg rounded-2xl"style={{marginLeft:400,marginBottom:-125,Width:"25%"}}
-  >
-<div className=" border shadow rounded-lg h-full">
-<img src="/images/object/3.png" alt="adidas" className="w-32 p-4 m-auto h-36"/>
-<CldUploadWidget uploadPreset="eg7up7vc"
-   >
-    
-        
-{({ open }) => {
-return (
-  
-<button onClick={() => {open()}}>
-Upload an Image
-</button>
-);
-}}
-</CldUploadWidget>
-
-</div>
-</div>
-<form  style={{width :"40%",marginLeft:750,height:"30%"}}className="flex flex-col w-full p-10 px-8 pt-6 mx-auto my-6 mb-4 transition duration-500 ease-in-out transform bg-white border rounded-lg lg:w-1/2 ">
+<form  style={{width :"40%",marginLeft:600,height:"30%", marginTop:-600}}className="flex flex-col w-full p-10 px-8 pt-6 mx-auto my-6 mb-4 transition duration-500 ease-in-out transform bg-white border rounded-lg lg:w-1/2 ">
 
 <div className="relative pt-4" style={{width:200}}>
 <label htmlFor="name" className="text-base leading-7 text-blueGray-500" >
@@ -176,24 +146,12 @@ Upload an Image
   className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
   onChange={(e)=>{setPrice(e.target.value)}}/>
 </div>
-
-<div className="relative mt-4" style={{marginLeft:4}}>
-<label htmlFor="name" className="text-base leading-7 text-blueGray-500">
-  category
-</label>
-<select className="w-full px-4 py-2 mt-2 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2">
-{category.map((el,i)=>(
-  <option key={i}>{el.content}</option>
-   ))}
-
-</select>
-</div>
 </div>
 
 <div className="flex items-center w-full pt-4 mb-4">
 <button className="w-full py-3 text-base text-white transition duration-500 ease-in-out transform bg-blue-600 border-blue-600 rounded-md focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 hover:bg-blue-800 "
    onClick={()=>{
-          addProd({
+    update({
             name:name,
             description:description,
             price:price,
@@ -204,20 +162,11 @@ Upload an Image
           })
         }}>
   {" "}
-  AddProduct{" "}
+  editproduct{" "}
 </button>
 </div>
 
 </form>
 </div>
 </div>
-</>
-
-
-</div>
-</div>
-       
-    
-       
-    )
-}
+    )}

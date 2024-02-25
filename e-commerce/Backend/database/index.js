@@ -3,6 +3,7 @@ const mysql = require('mysql2')
 
 
 
+
 const connection = new Sequelize('commerce', 'root', '1234', {
 
     host:'localhost',
