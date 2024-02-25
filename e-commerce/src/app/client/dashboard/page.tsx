@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import Header from  '../header/page';
 import Nav from '../nav/page';
