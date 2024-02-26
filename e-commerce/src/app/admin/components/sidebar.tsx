@@ -5,7 +5,7 @@ import React from 'react'
 
 export default function Sidebar() {
   return (
- 
+ <div style={{zIndex:"-1"}} >
  <div
       className="sidebar fixed top-7 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-gray-900"
     >
@@ -64,6 +64,7 @@ export default function Sidebar() {
         <span className="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
       </div>
 
+    </div>
     </div>
   )
 }

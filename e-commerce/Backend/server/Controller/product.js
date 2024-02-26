@@ -25,7 +25,7 @@ const AllProSeller = async(req,res) => {
 const GetOnePro=async(req,res) => {
     try {
     const result=await Product.findOne({where:{prodId:req.params.prodId}})
-    res.json(result)}
+    res.json([result])}
     catch (error) { res.send(error)}
 }
 

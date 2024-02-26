@@ -28,16 +28,26 @@ module.exports ={
     },
     getImage : async(req,res) => {
         try {
-        const categories=await db.Image.findAll({});
+        const categories=await db.Image.findAll({
+            where :  {productProdId:req.params.idprod}
+        });
         res.json(categories) }
          catch (error) {res.send(error) }
     },
+
     getOneImage : async(req,res)=>{
         try{
             const category=await db.Image.findOne({where:{imgId:req.params.imgId}})
             res.json(category)
         }
         catch (error) {res.send(error) }
-    }
+    },
 
+
+getImgProd : async(req,res) => {
+    try {
+    const categories=await db.Image.findAll({where:{productProdId:req.params.productProdId}});
+    res.json(categories) }
+     catch (error) {res.send(error) }
+},
 }
