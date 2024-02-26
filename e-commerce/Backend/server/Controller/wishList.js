@@ -17,19 +17,26 @@ const{Image}=require("../../database/Models/Image")
 //   })
 //   }
 const getAll = async (req, res)=> {
-try{
- const wish= await wishlist.findAll({
-    where: { userId: req.params.id },
-    include:[{
-    model:Product,
-    required:true,
-    include:[{
-      model:Image,
-      required:true
-    }]
-    }]
-  })
+  try{
+   const wish= await wishlist.findAll({
+      where: { userId: req.params.id },
+      include:[{
+      model:Product,
+      required:true,
+      include:[{
+        model:Image,
+        required:true
+      }]
+      }]
+    })
+    res.send(wish)
   }
+   catch(err){
+    console.log(err)
+   }
+
+
+  };
   const getone = function (req, res) {
     const get= wishlist.findAll({
       where:{productId:req.params.prodid,
@@ -40,14 +47,7 @@ try{
     .catch((error)=>{
       res.send(error)
     })
-  res.send(wish)
-}
- catch(err){
-  console.log(err)
- }
- 
-  
-};
+    }
  
 const add = function (req, res) {
   const add= wishlist.create(req.body).then((result)=>{
@@ -61,7 +61,7 @@ const add = function (req, res) {
     const del= wishlist.destroy({where:
       {userId:req.params.userid,
         productId:req.params.productid
-  
+
     }}).then((result)=>{
       res.json(result)
     })

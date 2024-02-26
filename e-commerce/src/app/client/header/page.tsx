@@ -9,8 +9,6 @@ import Link from "next/link";
 const Nav = () => {
 const params = useParams<{ Id: string }>();
 
-const  Nav = () => {
-
   return (
     <div>
         <div className="w-full h-12  py-3 bg-black justify-center items-center inline-flex">
@@ -28,7 +26,7 @@ const  Nav = () => {
         <div  className=" flex justify-center border-b border-gray-200 py-6">
       <div className="container sm:flex justify-between items-center">
         <div className="font-bold text-black text-4xl text-center pb-4 sm:pb-0 text-blackish">
-          <Link href={`/client/dashboard`}>
+          <Link href={`/client/dashboard/${params.Id}`}>
 
           Exclusive
           </Link>
@@ -49,20 +47,22 @@ const  Nav = () => {
 
         <div className="hidden lg:flex gap-4 text-gray-500 text-[30px]">
           <BiUser className="text-gray-500" />
-
+          <Link href={`/client/wishlist`}>
           <div className="relative">
             <FiHeart className="text-gray-500" />
             <div style={{background:"#17998a"}} className=" rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-black grid place-items-center translate-x-1 -translate-y-1">
               0
             </div>
           </div>
-
+          </Link>
+          <Link href={`/client/cart`}>
           <div className="relative">
             <HiOutlineShoppingBag className="text-gray-500" />
             <div style={{background:"#17998a"}} className="rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-black grid place-items-center translate-x-1 -translate-y-1">
               0
             </div>
           </div>
+          </Link>
         </div>
       </div>
     </div>

@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import "flowbite";
-import Nav from "../../header/page";
+import Nav from "../../../header/page";
+import Comment from "./comment/page"
 interface Products {
   categoryCatId: number;
   description: string;
@@ -17,24 +18,18 @@ interface imgages {
   img: string;
   productProdId: number;
 }
-interface Review {
-  userId: number;
-  prodId: number;
-  comment: string;
-}
 
 const ProductPage = () => {
-  const params = useParams<{ Id: string }>();
+  const params = useParams<{Id:string ; idprod: string}>();
   const [image, setImage] = useState<imgages[]>([]);
   const [activeImg, setActiveImage] = useState<string>();
   const [amount, setAmount] = useState<number>(1);
   const [product, setProduct] = useState<Products[]>([]);
-  const [reviewText, setReviewText] = useState<string>("");
-  const [reviews, setReviews] = useState<Review[]>([]);
+
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/apii/product/${params.Id}`)
+      .get(`http://localhost:8080/apii/product/${params.idprod}`)
       .then((res) => {
         setProduct(res.data);
       })
@@ -42,28 +37,26 @@ const ProductPage = () => {
         console.log(err);
       });
     axios
-      .get(`http://localhost:8080/img/getAll/${params.Id}`)
+      .get(`http://localhost:8080/img/getAll/${params.idprod}`)
       .then((res) => {
         setImage(res.data);
         setActiveImage(res.data[0].img);
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.log(err);
       });
+     
   }, []);
-  const addrev= () => {
-    axios
-      .post(`http://localhost:8080/api/reviews/add`, {
-        productId: params.Id,
-        text: reviewText,
-      })
-      .then((res) => {
-        setReviews([...reviews, res.data]);
-        setReviewText("");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+ 
+  const addtocart=()=>{
+    axios.post("http://localhost:8080/cartt/addOne",{
+      CartQuantity:amount,
+      userId:params.Id,
+      productId:params.idprod
+    }).then(()=>{
+      alert('Added to cart')
+    }).catch((err)=>{
+      console.log(err);
+    })
   }
 
   if (product.length === 0) {
@@ -153,34 +146,16 @@ const ProductPage = () => {
               <button
                 style={{ background: "#17998a" }}
                 className=" text-white font-semibold py-3 px-16 rounded-xl h-full"
+                onClick={()=>{
+                    addtocart
+                }}
               >
                 Add to Cart
               </button>
             </div>
           </div>
         </div>
-        <div>
-          <h1 className="font-bold text-3xl mb-3">Review</h1>
-          <div>
-        <input
-                type="text"
-                value={reviewText}
-                onChange={(e) => setReviewText(e.target.value)}
-                placeholder="Write a review"
-                className="border p-2 rounded-lg "
-              />
-              <button
-                style={{ background: "#17998a" }}
-                className=" text-white font-semibold py-3 px-16 rounded-xl h-full"
-                onClick={()=>{
-                  addrev()
-                }}
-              >
-                Add Review
-              </button>
-          </div>
-
-        </div>
+        <Comment/>
       </div>
     </div>
   );

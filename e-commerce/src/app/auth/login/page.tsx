@@ -41,8 +41,8 @@ export default function Login() {
         console.log(err);
         alert("worng email or password")
       });
-      if(rolee==="client")
-      {window.location.href=`http://localhost:3000/client/dasboard`}
+      if(rolee==="Client")
+      {window.location.href=`http://localhost:3000/client/dashboard/${Cookies.get("id")}`;}
       else if(rolee==="Seller")
       {window.location.href=`http://localhost:3000/seller`}
 };
