@@ -3,7 +3,12 @@ const {Image} = require('../../database/Models/Image.js')
 
 const AllPro = async(req,res) => {
     try {
-    const result=await Product.findAll({});
+    const result=await Product.findAll({
+        include:[{
+            model:Image,
+            required:true
+    }]
+    });
     res.json(result) }
      catch (error) {res.send(error) }
 };

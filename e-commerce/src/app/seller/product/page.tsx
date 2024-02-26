@@ -14,15 +14,25 @@ interface products {
   image:string,
   quantity:number,
   userUserId:number,
-  prodId:number
+  prodId:number,
+  imgId:number,
 }
-export default function(){
+interface image{
+  imgId:number,
+img:string,
+}
+interface Category {
+  content: string;
+}
+
+export default function(imgId:number){
 
  const [products,setProducts]=useState<products[]>([])
+ const [image,setImg]=useState<image[]>([])
+ const [category, setCategory] = useState<Category[]>([])
    
  useEffect(()=>{
   axios.get
-  // (`http://localhost:8080/apii/findproduct/${userUserId}`)
   ('http://localhost:8080/apii/product')
   .then((res)=>{
   console.log(res.data);
@@ -40,6 +50,28 @@ export default function(){
       })
       .catch((err) => console.log(err));
   }
+
+  useEffect(()=>{
+    axios.get
+    (`http://localhost:8080/img/getOne/${imgId}`)
+    .then((res)=>{
+    console.log(res.data);
+    setImg(res.data)
+    })
+    .catch((err)=>{console.log(err);
+    })
+    },[])
+    // useEffect(() => {
+    //   axios.get(`http://localhost:8080/category/getAll`)
+    //     .then((res) => {
+    //       setCategory(res.data);
+    //       console.log("this is category", res.data);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }, [])
+  
 
   
 
@@ -133,12 +165,16 @@ export default function(){
                     </thead>
                     <tbody>
                     {products.map((e)=>{return(
+                      
                         <tr>
+
                             <td className="px-5 py-5 text-sm bg-white border-b border-gray-200 w-80">
                                 <div className="flex items-center">
                                     <div className="flex-shrink-0">
+                                 
                                         <a href="#" className="relative block">
-                                            <img alt="profil" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrwDb-GnUwMOydrERFTg8CLDZqotSdwQ3cBbaG44d3lg&s" className="mx-auto object-cover rounded-full h-20 w-20 "/>
+                                        
+                                            <img alt="profil" src={e.imag} className="mx-auto object-cover rounded-full h-20 w-20 "/>
                                         </a>
                                     </div>
                                     <div className="ml-3">
