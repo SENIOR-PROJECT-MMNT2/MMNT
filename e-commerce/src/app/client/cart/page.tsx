@@ -23,7 +23,7 @@ const [refresh,setRefresh]=useState<boolean>(false)
 const[id,setId]=useState(Cookies.get("id"))
 console.log(id)
   useEffect(() => {
-    axios.get<CartItem[]>(`http://localhost:8080/cartt/getpro/3`)
+    axios.get<CartItem[]>(`http://localhost:8080/cartt/getpro/${id}`)
       .then((res) => {
         console.log(res.data)
         setProducts(res.data);
@@ -71,10 +71,10 @@ console.log(err)
           <div className="text-xl uppercase font-bold mt-10 text-center mb-10">Total: ${total}</div>
         </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 px-10'>
-          {products.map((el) => (
+          {products.map((el,i) => (
             <div key={el.idCart} className='bg-white shadow-md rounded-lg px-10 py-10'>
               <img
-                src={el.product.images.map((i) => i.img).join(',')}
+                src={products[i].product.images[0].img}
                 alt={el.product.name}
                 className='rounded-md h-48'
               />

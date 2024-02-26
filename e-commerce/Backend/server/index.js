@@ -15,6 +15,7 @@ const ImageRouter=require('../server/Routes/ImgRoute')
 const cartRouter=require('./Routes/cartRoute')
 const ratingrouter=require("./Routes/rating")
 const paymentRouter=require('./Routes/payment.js')
+const comment=require("./Routes/comment")
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -34,6 +35,7 @@ app.use('/img',ImageRouter)
 
 app.use('/cartt', cartRouter)
 app.use('/rate', ratingrouter)
+app.use('/com', comment)
 
 app.use('/payment',paymentRouter)
 app.listen(PORT, ()=>{

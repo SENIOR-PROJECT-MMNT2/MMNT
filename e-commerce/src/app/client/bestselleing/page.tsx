@@ -20,7 +20,7 @@ function BestSelling() {
    .then((res)=>{
  
     const randomizedProducts = rand(res.data);
-    setProduct(randomizedProducts)
+    setProduct(randomizedProducts.slice(0,4))
    })
    .catch((err)=>{console.log(err);
    })
@@ -51,7 +51,7 @@ function BestSelling() {
       </div>
       <div className='flex justify-center items-center w-full my-4'>
         <div className='flex justify-start w-4/5'>
-        <div className='mx-20 w-3/5 flex flex-row gap-x-8'>
+        <div className='mx-20 w-full flex  flex-row gap-x-8'>
           {product.map((product, index) => (
               <Productsales key={index} prod={product} />
             ))}

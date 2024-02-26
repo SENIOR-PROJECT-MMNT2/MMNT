@@ -4,7 +4,7 @@ import { GrFavorite } from "react-icons/gr";
 import { MdFavorite } from "react-icons/md";
 import { CiStar } from "react-icons/ci";
 import Link from "next/link";
-
+import { useParams } from "next/navigation";
 interface Product {
   categoryCatId: number;
   description: string;
@@ -20,6 +20,7 @@ interface ProductsProps {
 }
 
 function Productsales({ prod }: ProductsProps) {
+  const params = useParams<{ Id: string }>();
   const [image, setImage] = useState<string>("");
   const [fav, setFav] = useState<boolean>(false);
   const [rating, setRating] = useState<number | null>(null);
@@ -36,7 +37,7 @@ function Productsales({ prod }: ProductsProps) {
       });
 
     axios
-      .get(`http://localhost:8080/fav/getone/1/${prod.prodId}`)
+      .get(`http://localhost:8080/fav/getone/${params.Id}/${prod.prodId}`)
       .then((res) => {
         if (res.data.length > 0) {
           setFav(true);
@@ -54,12 +55,12 @@ function Productsales({ prod }: ProductsProps) {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [rating]);
 
   const addToWishlist = () => {
     axios
       .post("http://localhost:8080/fav/add", {
-        userId: 1,
+        userId: params.Id,
         productId: prod.prodId,
       })
       .then((res) => {
@@ -73,7 +74,7 @@ function Productsales({ prod }: ProductsProps) {
 
   const removeFromWishlist = () => {
     axios
-      .delete(`http://localhost:8080/fav/deletehome/1/${prod.prodId}`)
+      .delete(`http://localhost:8080/fav/deletehome/${params.Id}/${prod.prodId}`)
       .then((res) => {
         console.log("Product removed from wishlist:", res.data);
         setFav(false);
@@ -82,11 +83,22 @@ function Productsales({ prod }: ProductsProps) {
         console.log(err);
       });
   };
+  const addtocart=()=>{
+    axios.post("http://localhost:8080/cartt/addOne",{
+      CartQuantity:1,
+      userId:params.Id,
+      productId:prod.prodId
+    }).then(()=>{
+      alert('Added to cart')
+    }).catch((err)=>{
+      console.log(err);
+    })
+  }
 
   const rate = (value: number) => {
     axios
       .post("http://localhost:8080/rate/add", {
-        userId: 1,
+        userId: params.Id,
         prodId: prod.prodId,
         rating: value,
       })
@@ -100,7 +112,7 @@ function Productsales({ prod }: ProductsProps) {
   };
 
   return (
-    <div className="w-full h-2/6">
+    <div className=" max-w-64 w-full h-2/6">
       <div className="relative">
         <img
           className="p-4 rounded-t-lg w-full h-64"
@@ -121,7 +133,7 @@ function Productsales({ prod }: ProductsProps) {
       </div>
 
       <div className="px-5 pb-5">
-        <Link href={`/client/productpage/${prod.prodId}`}>
+        <Link href={`/client/productpage/${1}/${prod.prodId}`}>
           <h5 className="h-5 font-semibold tracking-tight text-gray-900 mb-10">
             {prod.name}
           </h5>
@@ -161,13 +173,13 @@ function Productsales({ prod }: ProductsProps) {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-2xl font-semibold ">${prod.price}</span>
-          <a
-            href="#"
+          <button
             style={{ background: "#17998a" }}
             className="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            onClick={()=>{addtocart()}}
           >
             Add to cart
-          </a>
+          </button>
         </div>
       </div>
     </div>
