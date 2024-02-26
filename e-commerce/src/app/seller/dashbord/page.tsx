@@ -1,51 +1,59 @@
-
+'use client'
 import Link from "next/link";
 import React,{ useState,useEffect,useRef}from 'react'
-// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-// import {
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import {
 
-//   CategoryScale,
-//   LinearScale,
-//   BarElement,
-//   Title,
-
-// } from 'chart.js';
-// import { Doughnut } from "react-chartjs-2";
-// ChartJS.register(
-//   CategoryScale,
-//   LinearScale,
-//   BarElement,
-//   Title,
-//   Tooltip,
-//   Legend
-// );
-// ChartJS.register(ArcElement, Tooltip, Legend);
-
-export default function(){
-//   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-// const [data, setData] = useState({
-//   labels: labels,
-//   datasets: [{
-//     label: 'Sales by Month',
-//     data: [65, 59, 80, 81, 56, 55, 40],
-//     backgroundColor: [
-//       '#DD5953 '
-//     ],
-//     borderColor: [
-//       '#9C9042'
-//     ],
-//     borderWidth: 1
-//   }]
-// })
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+  
+  } from 'chart.js';
+  import { Doughnut } from "react-chartjs-2";
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+  ChartJS.register(ArcElement, Tooltip, Legend);
+  
 
 
+
+  import { Bar } from 'react-chartjs-2';
+  
+  export default function Charts() {
+  const[sellers,setSellers]=useState([])
+  const[buyers,setBuyers]=useState([])
+  const[products,setProducts]=useState([])
+  const [allusers,setAllusers]=useState([])
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const [data, setData] = useState({
+    labels: labels,
+    datasets: [{
+      label: 'Sales by Month',
+      data: [65, 59, 80, 81, 56, 55, 40],
+      backgroundColor: [
+        '#17998a'
+      ],
+      borderColor: [
+        '#9C9042'
+      ],
+      borderWidth: 1
+    }]
+  })
     return(
-       <div>
+       <div >
           <div>
+      
            <div style={{display:'flex',width:'100%'}}>
 
            <div >
-            <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+            <div  className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
           <div className="mb-2 p-4">
             <h5 className="block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-gray-900">Dashboord</h5>
           </div>
@@ -96,7 +104,28 @@ export default function(){
         </div>
        </div>
        <div >
-       <div className="top-0 left-0 w-full px-10 py-6 flex justify-center" style={{marginLeft:200 ,marginTop:-700}}>
+       <div style={{marginLeft:"1100px",marginTop:"-250px"}} >
+<Doughnut
+        data={{
+          labels: [
+            "Sellers",
+            "Buyers",
+          ],
+          datasets: [
+            {
+              data: [sellers.length, buyers.length],
+              backgroundColor: ["#17998a","#3985E1"],
+            },
+          ],
+        }}
+      />
+</div>
+
+<div style={{marginLeft:"350px",marginTop:"-550px",width:"800px"}} >
+<Bar data={data} />
+</div>
+<div>
+       <div className="top- left-0 w-full px-10 py-6 flex justify-center" style={{marginLeft:200 ,marginTop:-700}}>
     <div className="mb-4" style={{ width: "30%", display: "flex" }}>
         <div className="relative w-64 p-4 overflow-hidden bg-white shadow-lg rounded-2xl">
             <div className="w-4/6">
@@ -133,6 +162,7 @@ export default function(){
             </div>
         </div>
     </div>
+</div>
 </div>
        </div>
        <div>

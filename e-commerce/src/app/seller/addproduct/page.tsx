@@ -1,42 +1,87 @@
- "use client"
- import { CldUploadWidget } from 'next-cloudinary';
- import Link from "next/link";
-import axios from "axios"
-import React,{useState,useEffect} from 'react'
-interface products {
-  name:string,
-  description:string
-  price:string,
-  image:string,
-  quantity:number,
-}
-interface categorys{
-  content:string,
-}
-export default function(){
 
- const [products,setProducts]=useState<products[]>([]) 
- const [category,setCategory]=useState<categorys[]>([])
- const [name, setname] = useState('');
-const [description, setDescription] = useState('');
-const [price, setPrice] = useState('')
-const [ quantity,setQuantity]=useState('')
-const [info, updateInfo] = useState();
-const [error, updateError] = useState();
- 
- useEffect(()=>{
-  axios.get(`http://localhost:8080/category/getAll`).then((res)=>{
-    setCategory(res.data)
-    console.log("this is category",res.data)
-  })
-  .catch((err)=>{console.log(err)})
-},[])
+"use client"
+import { CldUploadWidget } from 'next-cloudinary';
+import Link from "next/link";
+import axios from "axios";
+import React, { useState, useEffect } from 'react';
 
-const addProd=(content:object)=>{
-  axios.post(`http://localhost:8080/apii/addproduct`,content)
-  .then(()=>{console.log("added")})
-  .catch(()=>{console.log("error")})
+interface Product {
+  name: string;
+  description: string;
+  price: string;
+  image: string;
+  quantity: number;
+  
 }
+
+interface Category {
+  content: string;
+}
+
+export default function MyComponent() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [category, setCategory] = useState<Category[]>([]);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [image, setImage] = useState<File | null>(null);
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/category/getAll`)
+      .then((res) => {
+        setCategory(res.data);
+        console.log("this is category", res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const uploadImage = async (image: File) => {
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "eg7up7vc")
+
+    try {
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/du0wpkjrs/upload",
+        formData
+      );
+      return response.data.secure_url;
+    } catch (error) {
+      console.error("Error uploading image to Cloudinary:", error);
+      throw error;
+    }
+  };
+
+  const insertProduct = async () => {
+    try {
+      if (!image) {
+        throw new Error("Please select an image");
+      }
+
+      const mainImageUrl = await uploadImage(image);
+      const newProduct: Product = {
+        name,
+        description,
+        price,
+        image: mainImageUrl,
+        quantity: parseInt(quantity),
+      };
+
+       axios.post(`http://localhost:8080/apii/addproduct`, newProduct);
+      console.log("Product added successfully");
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
+  }
 
     return(
   <div className='background-color: rgb(	243, 243, 243 ) '>;   
@@ -100,27 +145,8 @@ const addProd=(content:object)=>{
 {/* component */}
 <div style={{marginTop:"-750px"}} >
 <div>
-<div className="w-64 p-2 m-auto bg-white shadow-lg rounded-2xl"style={{marginLeft:400,marginBottom:-125,Width:"25%"}}
-  >
-<div className=" border shadow rounded-lg h-full">
-<img src="/images/object/3.png" alt="adidas" className="w-32 p-4 m-auto h-36"/>
-<CldUploadWidget uploadPreset="eg7up7vc"
-   >
-    
-        
-{({ open }) => {
-return (
-  
-<button onClick={() => {open()}}>
-Upload an Image
-</button>
-);
-}}
-</CldUploadWidget>
-
 </div>
-</div>
-<form  style={{width :"40%",marginLeft:750,height:"30%"}}className="flex flex-col w-full p-10 px-8 pt-6 mx-auto my-6 mb-4 transition duration-500 ease-in-out transform bg-white border rounded-lg lg:w-1/2 ">
+<form  style={{width :"40%",marginLeft:400,height:"30%"}}className="flex flex-col w-full p-10 px-8 pt-6 mx-auto my-6 mb-4 transition duration-500 ease-in-out transform bg-white border rounded-lg lg:w-1/2 ">
 
 <div className="relative pt-4" style={{width:200}}>
 <label htmlFor="name" className="text-base leading-7 text-blueGray-500" >
@@ -132,7 +158,7 @@ Upload an Image
   name="name"
   placeholder="name"
   className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
-  onChange={(e)=>{setname(e.target.value)}}/>
+  onChange={(e)=>{setName(e.target.value)}}/>
 </div>
 <div className="flex flex-wrap mt-4 mb-6 -mx-3">
 <div className="w-full px-3">
@@ -151,7 +177,7 @@ Upload an Image
     onChange={(e)=>{setDescription(e.target.value)}}/>
 </div>
 </div>
-<div style={{display	:'flex',width:"70%",marginRight:4}}>
+<div style={{display	:'column',width:"70%",marginRight:4}}>
 <div className="relative pt-4">
 <label htmlFor="name" className="text-base leading-7 text-blueGray-500">
   stock
@@ -188,20 +214,35 @@ Upload an Image
 
 </select>
 </div>
+{/* <div className="w-64 p-2 m-auto bg-white shadow-lg rounded-2xl"style={{marginLeft:400,marginTop:50,Width:"25%"}}
+  > */}
+  <div className="h-20 w-63 mt-6">
+      {/* Display the uploaded image if available */}
+      {image && (
+        <img src={URL.createObjectURL(image)} alt="Uploaded" className="w-3/4 h-full" />
+      )}
+      {/* Input element for selecting an image */}
+      <input
+        type="file"
+        onChange={handleImageChange}
+        accept="image/*"
+        id="imageInput"
+        className='border rounded-lg'
+      />
+      {/* Button to trigger the file input */}
+      {/* <label htmlFor="imageInput" className="text-center ml-10 mt-10">
+         image
+      </label> */}
+    </div>
+
+
+
 </div>
 
 <div className="flex items-center w-full pt-4 mb-4">
-<button className="w-full py-3 text-base text-white transition duration-500 ease-in-out transform bg-blue-600 border-blue-600 rounded-md focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 hover:bg-blue-800 "
+<button className="w-full py-3 text-base text-white transition duration-500 ease-in-out transform bg-blue-600 border-blue-600 rounded-md focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 hover:bg-blue-800 mt-10 "
    onClick={()=>{
-          addProd({
-            name:name,
-            description:description,
-            price:price,
-            quantity:quantity,
-            // userUserId: id,
-            // categoryCatId: cat,
-            
-          })
+        insertProduct()
         }}>
   {" "}
   AddProduct{" "}
@@ -210,13 +251,13 @@ Upload an Image
 
 </form>
 </div>
-</div>
 </>
+</div>
+
 
 
 </div>
-</div>
-       
+    
     
        
     )

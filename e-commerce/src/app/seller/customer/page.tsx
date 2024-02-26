@@ -17,7 +17,7 @@ export default function(){
   const [users,setUsers]=useState<users[]>([]) 
       
   useEffect(()=>{
-  axios.get('http://localhost:8080/client/getSome/buyer')
+  axios.get('http://localhost:8080/client/getAll')
   .then((res)=>{
   console.log(res.data);
   setUsers(res.data)
