@@ -5,14 +5,15 @@ import { useParams } from "next/navigation";
 import "flowbite";
 import Nav from "../../../header/page";
 import Comment from "./comment/page"
+
 interface Products {
-  categoryCatId: number;
-  description: string;
-  name: string;
-  price: number;
-  prodId: number;
-  quantity: number;
-  userUserId: number;
+  categoryCatId: number,
+  description: string,
+  name: string,
+  price: number,
+  prodId: number,
+  quantity: number,
+  userUserId: number
 }
 interface imgages {
   img: string;
@@ -47,8 +48,13 @@ const ProductPage = () => {
      
   }, []);
  
-  const addtocart=()=>{
-    axios.post("http://localhost:8080/cartt/addOne",{
+  const addtocart= async ()=>{
+    console.log({
+      CartQuantity:amount,
+      userId:params.Id,
+      productId:params.idprod
+    })
+    await axios.post("http://localhost:8080/cartt/addOne",{
       CartQuantity:amount,
       userId:params.Id,
       productId:params.idprod
@@ -147,7 +153,7 @@ const ProductPage = () => {
                 style={{ background: "#17998a" }}
                 className=" text-white font-semibold py-3 px-16 rounded-xl h-full"
                 onClick={()=>{
-                    addtocart
+                  addtocart()
                 }}
               >
                 Add to Cart

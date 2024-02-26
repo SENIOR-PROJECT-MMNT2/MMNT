@@ -23,7 +23,7 @@ const [refresh,setRefresh]=useState<boolean>(false)
 const[id,setId]=useState(Cookies.get("id"))
 console.log(id)
   useEffect(() => {
-    axios.get<CartItem[]>(`http://localhost:8080/cartt/getpro/1`)
+    axios.get<CartItem[]>(`http://localhost:8080/cartt/getpro/${id}`)
       .then((res) => {
         console.log(res.data)
         setProducts(res.data);
